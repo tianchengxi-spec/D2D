@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>BookDate - Bookstore Interactive</title>
     
     <!-- Tailwind CSS -->
@@ -27,7 +27,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            /* Use dvh for dynamic viewport height on mobile browsers */
+            min-height: 100vh; 
+            min-height: 100dvh;
             margin: 0;
             overflow: hidden;
         }
@@ -39,22 +41,25 @@
         
         #root {
             width: 100%;
+            /* Fix height to fit screen exactly without scroll on body */
             height: 100vh;
-            max-width: 834px; 
-            max-height: 1112px;
+            height: 100dvh; 
             background: white;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
         }
 
+        /* Desktop/iPad Landscape Optimization */
         @media (min-width: 835px) {
             #root {
+                max-width: 834px; 
+                max-height: 1112px;
                 border-radius: 30px;
                 height: 90vh;
                 margin: 20px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             }
         }
     </style>
@@ -86,7 +91,7 @@
         </svg>
     );
 
-    // --- 1. DATA SETUP (Local Paths Updated) ---
+    // --- 1. DATA SETUP (With D2D Path Prefix) ---
     
     const USER_TAGS = [
         "Sci-Fi Geek", "Philosophy Thinker", "Political Enthusiast", 
@@ -94,12 +99,15 @@
         "Optimist", "Nature Lover", "History Buff"
     ];
 
+    // Prefix for GitHub Repo Structure
+    const PATH_PREFIX = "D2D/images/";
+
     const BOOKS = [
         {
             id: 1,
             title: "Harry Potter & The Deathly Hallows",
             author: "J.K. Rowling",
-            cover: "./images/Harry Potter.jpg",
+            cover: `${PATH_PREFIX}Harry Potter.jpg`,
             tags: ["Fantasy", "Adventure", "Magic"],
             preferredUserTags: ["Optimist", "Romantic Soul", "Nature Lover"],
             questions: [
@@ -111,7 +119,7 @@
             id: 2,
             title: "Dune",
             author: "Frank Herbert",
-            cover: "./images/Dune.jpg",
+            cover: `${PATH_PREFIX}Dune.jpg`,
             tags: ["Sci-Fi", "Epic", "Ecology"],
             preferredUserTags: ["Sci-Fi Geek", "Political Enthusiast", "Philosophy Thinker"],
             questions: [
@@ -123,7 +131,7 @@
             id: 3,
             title: "Neuromancer",
             author: "William Gibson",
-            cover: "./images/Neuromancer.jpg",
+            cover: `${PATH_PREFIX}Neuromancer.jpg`,
             tags: ["Cyberpunk", "Dystopian", "Tech"],
             preferredUserTags: ["Sci-Fi Geek", "Philosophy Thinker"],
             questions: [
@@ -135,7 +143,7 @@
             id: 4,
             title: "Educated",
             author: "Tara Westover",
-            cover: "./images/Educated.jpg",
+            cover: `${PATH_PREFIX}Educated.jpg`,
             tags: ["Memoir", "Growth", "Resilience"],
             preferredUserTags: ["Feminist", "Philosophy Thinker", "History Buff"],
             questions: [
@@ -147,7 +155,7 @@
             id: 5,
             title: "The Baron in the Trees",
             author: "Italo Calvino",
-            cover: "./images/The Baron in the Trees.jpg",
+            cover: `${PATH_PREFIX}The Baron in the Trees.jpg`,
             tags: ["Classic", "Whimsical", "Nature"],
             preferredUserTags: ["Romantic Soul", "Nature Lover", "Philosophy Thinker"],
             questions: [
@@ -159,7 +167,7 @@
             id: 6,
             title: "A Room of One's Own",
             author: "Virginia Woolf",
-            cover: "./images/A Room of Ones Own.jpg",
+            cover: `${PATH_PREFIX}A Room of Ones Own.jpg`,
             tags: ["Feminist", "Essay", "Classic"],
             preferredUserTags: ["Feminist", "Philosophy Thinker", "Political Enthusiast"],
             questions: [
@@ -171,7 +179,7 @@
             id: 7,
             title: "Salome",
             author: "Oscar Wilde",
-            cover: "./images/Salome.jpg",
+            cover: `${PATH_PREFIX}Salome.jpg`,
             tags: ["Play", "Tragedy", "Decadence"],
             preferredUserTags: ["Tragedy Lover", "Romantic Soul"],
             questions: [
@@ -183,7 +191,7 @@
             id: 8,
             title: "Solaris",
             author: "Stanislaw Lem",
-            cover: "./images/Solaris.jpg",
+            cover: `${PATH_PREFIX}Solaris.jpg`,
             tags: ["Sci-Fi", "Psychological", "Alien"],
             preferredUserTags: ["Sci-Fi Geek", "Philosophy Thinker", "Tragedy Lover"],
             questions: [
@@ -195,7 +203,7 @@
             id: 9,
             title: "Strait Is the Gate",
             author: "André Gide",
-            cover: "./images/Strait Is the Gate.jpg",
+            cover: `${PATH_PREFIX}Strait Is the Gate.jpg`,
             tags: ["Classic", "Moralist", "French"],
             preferredUserTags: ["Tragedy Lover", "Philosophy Thinker"],
             questions: [
@@ -207,7 +215,7 @@
             id: 10,
             title: "Flowers for Algernon",
             author: "Daniel Keyes",
-            cover: "./images/Flowers for Algernon.jpg",
+            cover: `${PATH_PREFIX}Flowers for Algernon.jpg`,
             tags: ["Sci-Fi", "Tragedy", "Psychology"],
             preferredUserTags: ["Tragedy Lover", "Sci-Fi Geek"],
             questions: [
@@ -219,7 +227,7 @@
             id: 11,
             title: "The Unbearable Lightness of Being",
             author: "Milan Kundera",
-            cover: "./images/The Unbearable Lightness of Being.jpg",
+            cover: `${PATH_PREFIX}The Unbearable Lightness of Being.jpg`,
             tags: ["Philosophy", "Romance", "Political"],
             preferredUserTags: ["Philosophy Thinker", "Political Enthusiast", "Romantic Soul"],
             questions: [
@@ -231,7 +239,7 @@
             id: 12,
             title: "Letter from an Unknown Woman",
             author: "James Naremore",
-            cover: "./images/Letter from an Unknown Woman.jpg",
+            cover: `${PATH_PREFIX}Letter from an Unknown Woman.jpg`,
             tags: ["Romance", "Tragedy", "Cinema"],
             preferredUserTags: ["Romantic Soul", "Tragedy Lover"],
             questions: [
@@ -243,7 +251,7 @@
             id: 13,
             title: "1984",
             author: "George Orwell",
-            cover: "./images/1984.jpg",
+            cover: `${PATH_PREFIX}1984.jpg`,
             tags: ["Dystopian", "Political", "Classic"],
             preferredUserTags: ["Political Enthusiast", "Philosophy Thinker"],
             questions: [
@@ -255,6 +263,7 @@
 
     // --- 2. COMPONENTS ---
 
+    // Responsive Fix: Flex Layout to ensure button sticks to bottom without overflow
     const TagSelection = ({ onStart }) => {
         const [selected, setSelected] = useState([]);
 
@@ -267,34 +276,39 @@
         };
 
         return (
-            <div className="h-full p-10 flex flex-col justify-between bg-white relative z-10">
-                <div className="mt-10">
-                    <h1 className="text-5xl font-bold text-gray-900 mb-4 font-serif">Who are you?</h1>
-                    <p className="text-gray-500 text-xl mb-12">Select tags to help books find you.</p>
-                    
-                    <div className="flex flex-wrap gap-4">
-                        {USER_TAGS.map(tag => (
-                            <button
-                                key={tag}
-                                onClick={() => toggleTag(tag)}
-                                className={`px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 border-2 
-                                ${selected.includes(tag) 
-                                    ? 'bg-rose-600 border-rose-600 text-white shadow-lg transform scale-105' 
-                                    : 'bg-white border-gray-200 text-gray-600 hover:border-rose-300'}`}
-                            >
-                                {tag}
-                            </button>
-                        ))}
+            <div className="h-full flex flex-col relative z-10 bg-white">
+                <div className="flex-1 overflow-y-auto p-10 pb-0">
+                    <div className="mt-6">
+                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-serif">Who are you?</h1>
+                        <p className="text-gray-500 text-lg md:text-xl mb-10">Select tags to help books find you.</p>
+                        
+                        <div className="flex flex-wrap gap-4">
+                            {USER_TAGS.map(tag => (
+                                <button
+                                    key={tag}
+                                    onClick={() => toggleTag(tag)}
+                                    className={`px-5 py-3 rounded-full text-base md:text-lg font-medium transition-all duration-300 border-2 
+                                    ${selected.includes(tag) 
+                                        ? 'bg-rose-600 border-rose-600 text-white shadow-lg transform scale-105' 
+                                        : 'bg-white border-gray-200 text-gray-600 hover:border-rose-300'}`}
+                                >
+                                    {tag}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
                 
-                <button 
-                    disabled={selected.length === 0}
-                    onClick={() => onStart(selected)}
-                    className="w-full py-6 bg-gray-900 text-white text-xl font-bold rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-opacity mb-4 shadow-xl"
-                >
-                    Start Matching
-                </button>
+                {/* Fixed bottom area */}
+                <div className="p-10 pt-4 shrink-0">
+                    <button 
+                        disabled={selected.length === 0}
+                        onClick={() => onStart(selected)}
+                        className="w-full py-5 md:py-6 bg-gray-900 text-white text-lg md:text-xl font-bold rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-opacity shadow-xl"
+                    >
+                        Start Matching
+                    </button>
+                </div>
             </div>
         );
     };
@@ -315,7 +329,7 @@
 
         return (
             <motion.div 
-                className="absolute w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 cursor-grab active:cursor-grabbing"
+                className="absolute w-full h-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 cursor-grab active:cursor-grabbing flex flex-col"
                 style={{ x, rotate }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
@@ -325,34 +339,34 @@
                 exit={{ scale: 1.05, opacity: 0 }}
                 transition={{ duration: 0.3 }}
             >
-                {/* Overlay Stamps */}
-                <motion.div style={{ opacity: opacityLike }} className="absolute top-10 left-10 border-4 border-green-500 rounded-xl px-6 py-2 z-30 transform -rotate-12 bg-white/30 backdrop-blur-md">
+                {/* Overlays */}
+                <motion.div style={{ opacity: opacityLike }} className="absolute top-10 left-10 border-4 border-green-500 rounded-xl px-6 py-2 z-30 transform -rotate-12 bg-white/30 backdrop-blur-md pointer-events-none">
                     <span className="text-green-600 font-extrabold text-4xl tracking-widest">LIKE</span>
                 </motion.div>
-                <motion.div style={{ opacity: opacityNope }} className="absolute top-10 right-10 border-4 border-red-500 rounded-xl px-6 py-2 z-30 transform rotate-12 bg-white/30 backdrop-blur-md">
+                <motion.div style={{ opacity: opacityNope }} className="absolute top-10 right-10 border-4 border-red-500 rounded-xl px-6 py-2 z-30 transform rotate-12 bg-white/30 backdrop-blur-md pointer-events-none">
                     <span className="text-red-600 font-extrabold text-4xl tracking-widest">NOPE</span>
                 </motion.div>
 
-                {/* Cover Image */}
-                <div className="h-[72%] w-full relative bg-gray-100">
+                {/* Cover Image - Flex Grow to take available space */}
+                <div className="flex-grow relative bg-gray-100 overflow-hidden">
                     <img src={book.cover} alt={book.title} className="w-full h-full object-cover select-none pointer-events-none" />
-                    <div className="absolute bottom-0 inset-x-0 h-56 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-                    <div className="absolute bottom-8 left-8 text-white pr-6">
+                    <div className="absolute bottom-0 inset-x-0 h-48 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    <div className="absolute bottom-6 left-6 text-white pr-6">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold leading-tight mb-2 drop-shadow-lg">{book.title}</h2>
-                        <p className="text-xl opacity-90 font-medium tracking-wide">{book.author}</p>
+                        <p className="text-lg md:text-xl opacity-90 font-medium tracking-wide">{book.author}</p>
                     </div>
                 </div>
 
-                {/* Details */}
-                <div className="p-8 h-[28%] bg-white flex flex-col">
-                    <div className="flex flex-wrap gap-2 mb-4">
+                {/* Details - Fixed height content */}
+                <div className="p-6 md:p-8 bg-white shrink-0">
+                    <div className="flex flex-wrap gap-2 mb-2">
                         {book.tags.map(t => (
-                            <span key={t} className="px-3 py-1.5 bg-gray-100 text-gray-600 text-sm font-bold rounded-lg uppercase tracking-wider border border-gray-200">
+                            <span key={t} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs md:text-sm font-bold rounded-lg uppercase tracking-wider border border-gray-200">
                                 {t}
                             </span>
                         ))}
                     </div>
-                    <p className="text-gray-400 text-sm mt-auto">Swipe right to see if the story chooses you.</p>
+                    <p className="text-gray-400 text-xs md:text-sm mt-2">Swipe right to connect.</p>
                 </div>
             </motion.div>
         );
@@ -361,20 +375,21 @@
     const WaitingScreen = ({ book }) => {
         return (
             <div className="h-full flex flex-col items-center justify-center p-10 bg-white/95 backdrop-blur-xl z-50">
-                <div className="relative w-40 h-40 mb-10">
-                    <img src={book.cover} className="w-40 h-40 rounded-full object-cover border-4 border-white shadow-xl z-10 relative" />
+                <div className="relative w-32 h-32 md:w-40 md:h-40 mb-10">
+                    <img src={book.cover} className="w-full h-full rounded-full object-cover border-4 border-white shadow-xl z-10 relative" />
                     <motion.div 
                         className="absolute inset-0 rounded-full border-4 border-rose-400"
                         animate={{ scale: [1, 1.4], opacity: [1, 0] }}
                         transition={{ repeat: Infinity, duration: 1.8 }}
                     />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2 font-serif">Waiting for {book.title}...</h3>
-                <p className="text-gray-500 text-center">Checking if you match its vibe.</p>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 font-serif text-center">Waiting for response...</h3>
+                <p className="text-gray-500 text-center text-sm md:text-base">Checking if {book.title} matches your vibe.</p>
             </div>
         );
     };
 
+    // Responsive Fix: Using min-h-0 to allow nested flex scrolling
     const ChatScreen = ({ book, onComplete }) => {
         const [step, setStep] = useState(0);
         const [history, setHistory] = useState([]); 
@@ -412,16 +427,18 @@
         const currentQuestion = book.questions[step];
 
         return (
-            <div className="h-full flex flex-col bg-gray-50 w-full">
-                <div className="p-6 bg-white border-b border-gray-200 flex items-center shadow-sm z-10 shrink-0">
-                    <img src={book.cover} className="w-14 h-14 rounded-full object-cover border border-gray-200 mr-4" />
+            <div className="h-full flex flex-col bg-gray-50 w-full overflow-hidden">
+                {/* Header - Fixed */}
+                <div className="p-4 md:p-6 bg-white border-b border-gray-200 flex items-center shadow-sm z-10 shrink-0">
+                    <img src={book.cover} className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover border border-gray-200 mr-4" />
                     <div>
-                        <h3 className="font-bold text-lg leading-tight max-w-[200px] truncate">{book.title}</h3>
+                        <h3 className="font-bold text-base md:text-lg leading-tight max-w-[200px] truncate">{book.title}</h3>
                         <span className="text-xs text-green-500 font-bold uppercase tracking-wider">Online</span>
                     </div>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-6 space-y-6 w-full" ref={scrollRef}>
+                {/* Chat History - Scrollable */}
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-6 w-full min-h-0" ref={scrollRef}>
                     {history.map((msg, idx) => (
                         <motion.div 
                             key={idx}
@@ -429,7 +446,7 @@
                             animate={{ opacity: 1, y: 0 }}
                             className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                         >
-                            <div className={`max-w-[85%] p-5 rounded-2xl text-lg leading-relaxed shadow-sm ${
+                            <div className={`max-w-[85%] p-4 md:p-5 rounded-2xl text-base md:text-lg leading-relaxed shadow-sm ${
                                 msg.sender === 'user' 
                                 ? 'bg-rose-500 text-white rounded-br-none' 
                                 : 'bg-white border border-gray-200 text-gray-800 rounded-bl-none'
@@ -446,14 +463,15 @@
                     )}
                 </div>
 
-                <div className="p-6 bg-white border-t border-gray-200 shrink-0 pb-10">
+                {/* Options - Fixed at bottom */}
+                <div className="p-4 md:p-6 bg-white border-t border-gray-200 shrink-0 pb-8 md:pb-10">
                     {history.length > 0 && history[history.length-1].sender === 'book' && currentQuestion ? (
-                        <div className="grid gap-4">
+                        <div className="grid gap-3 md:gap-4">
                             {currentQuestion.options.map((opt, idx) => (
                                 <button 
                                     key={idx}
                                     onClick={() => handleAnswer(opt)}
-                                    className="w-full p-5 border-2 border-gray-100 rounded-xl text-left hover:bg-rose-50 hover:border-rose-200 font-semibold transition-all text-lg active:scale-98 text-gray-700"
+                                    className="w-full p-4 md:p-5 border-2 border-gray-100 rounded-xl text-left hover:bg-rose-50 hover:border-rose-200 font-semibold transition-all text-base md:text-lg active:scale-98 text-gray-700"
                                 >
                                     {opt.text}
                                 </button>
@@ -469,39 +487,39 @@
 
     const ResultScreen = ({ status, book, onReset }) => {
         return (
-            <div className="h-full flex flex-col items-center justify-center p-8 bg-white text-center relative">
+            <div className="h-full flex flex-col items-center justify-center p-6 md:p-8 bg-white text-center relative overflow-y-auto">
                 <motion.div 
                     initial={{ scale: 0, rotate: -180 }} 
                     animate={{ scale: 1, rotate: 0 }} 
-                    className="mb-8 text-8xl filter drop-shadow-lg"
+                    className="mb-6 md:mb-8 text-7xl md:text-8xl filter drop-shadow-lg"
                     transition={{ type: "spring", damping: 12 }}
                 >
                     {status === 'match' ? '💖' : '👋'}
                 </motion.div>
 
-                <h2 className="text-4xl font-serif font-bold mb-4 text-gray-900">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-gray-900">
                     {status === 'match' ? "It's a Match!" : "Not quite a match..."}
                 </h2>
 
-                <p className="text-xl text-gray-600 mb-10 max-w-md leading-relaxed">
+                <p className="text-lg md:text-xl text-gray-600 mb-8 md:mb-10 max-w-md leading-relaxed">
                     {status === 'match' 
                         ? <span>You and <strong>{book.title}</strong> are meant to be. Go pick it up before someone else does.</span> 
                         : <span>Maybe <strong>{book.title}</strong> wasn't the one, but it's still worth a read. We saved it for you anyway.</span>}
                 </p>
 
-                <div className="w-full max-w-sm bg-gray-50 p-6 rounded-2xl border border-gray-200 mb-12 flex flex-col items-center">
+                <div className="w-full max-w-sm bg-gray-50 p-6 rounded-2xl border border-gray-200 mb-8 md:mb-12 flex flex-col items-center">
                     <div className="flex items-center justify-center text-rose-500 mb-3 bg-white p-3 rounded-full shadow-sm">
-                        <IconMapPin className="w-8 h-8" />
+                        <IconMapPin className="w-6 h-6 md:w-8 md:h-8" />
                     </div>
-                    <div className="text-2xl font-mono font-bold text-gray-800 tracking-tight">
+                    <div className="text-xl md:text-2xl font-mono font-bold text-gray-800 tracking-tight">
                         {book.location}
                     </div>
-                    <div className="text-sm text-gray-500 mt-1 uppercase tracking-widest font-semibold">In-Store Location</div>
+                    <div className="text-xs md:text-sm text-gray-500 mt-1 uppercase tracking-widest font-semibold">In-Store Location</div>
                 </div>
 
                 <button 
                     onClick={onReset}
-                    className="px-10 py-4 bg-gray-900 text-white rounded-full font-bold text-lg shadow-xl hover:bg-gray-800 transition-colors active:scale-95"
+                    className="px-8 py-3 md:px-10 md:py-4 bg-gray-900 text-white rounded-full font-bold text-lg shadow-xl hover:bg-gray-800 transition-colors active:scale-95 mb-8"
                 >
                     Find Another Match
                 </button>
@@ -546,6 +564,7 @@
         };
 
         const checkMatch = (book) => {
+            // Simple Logic: High Match if ANY user tag matches book's preferred tags
             const matchCount = book.preferredUserTags.filter(tag => userTags.includes(tag)).length;
             
             if (matchCount >= 1) {
@@ -567,14 +586,14 @@
         };
 
         return (
-            <div className="w-full h-full relative bg-gray-50 text-gray-800 overflow-hidden flex flex-col">
+            <div className="w-full h-full relative bg-gray-50 text-gray-800 flex flex-col">
                 
                 {/* Header */}
-                <div className="absolute top-0 w-full p-6 flex justify-center z-20 pointer-events-none">
-                    <span className="font-serif font-bold text-gray-300 tracking-[0.3em] text-sm">BOOKDATE</span>
+                <div className="absolute top-0 w-full p-4 md:p-6 flex justify-center z-20 pointer-events-none">
+                    <span className="font-serif font-bold text-gray-300 tracking-[0.3em] text-xs md:text-sm">BOOKDATE</span>
                 </div>
 
-                <div className="flex-1 relative w-full h-full">
+                <div className="flex-1 relative w-full h-full overflow-hidden">
                     <AnimatePresence mode='wait'>
                         {screen === 'tags' && (
                             <motion.div key="tags" className="w-full h-full absolute top-0 left-0" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
@@ -584,7 +603,8 @@
 
                         {screen === 'deck' && (
                             <div key="deck" className="w-full h-full flex flex-col items-center justify-center relative px-4 pt-4">
-                                <div className="w-full max-w-[420px] h-[68%] relative z-10">
+                                {/* Responsive Card Container: Adjusts height based on screen size */}
+                                <div className="w-full max-w-[420px] h-[65vh] md:h-[68%] relative z-10">
                                     <SwipeCard 
                                         key={BOOKS[currentBookIndex].id} 
                                         book={BOOKS[currentBookIndex]} 
@@ -596,11 +616,11 @@
                                 </div>
 
                                 {/* Control Buttons */}
-                                <div className="flex gap-8 mt-10 z-20">
-                                    <button onClick={() => handleSwipe('left')} className="w-18 h-18 p-5 bg-white rounded-full shadow-xl flex items-center justify-center text-red-500 border border-gray-100 hover:scale-110 transition-transform active:scale-90 active:bg-red-50">
+                                <div className="flex gap-6 md:gap-8 mt-6 md:mt-10 z-20">
+                                    <button onClick={() => handleSwipe('left')} className="w-16 h-16 md:w-18 md:h-18 bg-white rounded-full shadow-xl flex items-center justify-center text-red-500 border border-gray-100 hover:scale-110 transition-transform active:scale-90 active:bg-red-50">
                                         <IconX className="w-8 h-8" />
                                     </button>
-                                    <button onClick={() => handleSwipe('right')} className="w-18 h-18 p-5 bg-white rounded-full shadow-xl flex items-center justify-center text-green-500 border border-gray-100 hover:scale-110 transition-transform active:scale-90 active:bg-green-50">
+                                    <button onClick={() => handleSwipe('right')} className="w-16 h-16 md:w-18 md:h-18 bg-white rounded-full shadow-xl flex items-center justify-center text-green-500 border border-gray-100 hover:scale-110 transition-transform active:scale-90 active:bg-green-50">
                                         <IconHeart className="w-8 h-8" />
                                     </button>
                                 </div>
